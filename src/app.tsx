@@ -1,9 +1,7 @@
 export const App = () => {
 	return (
 		<div>
-			<h1 id='title' className='text-3xl font-bold underline'>
-				Hello World
-			</h1>
+			Score Rules You Picked The House Picked You Win You Lose Play Again
 		</div>
 	);
 };
