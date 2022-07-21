@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        font-family: Barlow Semi Condensed, system-ui, sans-serif;
+    }
+
+    .inner-highlight {
+        filter: url(#inset-highlight);
+    }
+
+    .inner-shadow {
+        filter: url(#inset-shadow);
+    }
+}

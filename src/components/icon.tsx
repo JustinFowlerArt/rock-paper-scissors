@@ -1,0 +1,29 @@
+interface Props {
+	name: string;
+}
+
+export const Icon = ({ name }: Props) => {
+	return (
+		<svg
+			width={130}
+			height={130}
+			className='inner-shadow z-10'
+			style={{ fill: `url(#${name}-gradient)` }}
+		>
+			<circle r={65} cx={65} cy={65}></circle>
+			<circle
+				r={48}
+				cx={65}
+				cy={65}
+				className='fill-gray-200 inner-highlight'
+			></circle>
+
+			<image
+				width={`${name === 'paper' ? 42 : 45}`}
+				x={42}
+				y={`${name === 'rock' ? 45 : 42}`}
+				href={`/images/icon-${name}.svg`}
+			/>
+		</svg>
+	);
+};
