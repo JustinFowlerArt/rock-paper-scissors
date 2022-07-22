@@ -1,5 +1,5 @@
 export const SvgStyles = () => (
-	<svg>
+	<svg width={0} height={0}>
 		<linearGradient id='rock-gradient' x1='0%' y1='100%' x2='0%' y2='0%'>
 			<stop offset='0%' stopColor='hsl(349, 71%, 52%)' />
 			<stop offset='100%' stopColor='hsl(349, 70%, 56%)' />
