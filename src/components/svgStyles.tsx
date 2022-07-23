@@ -12,6 +12,14 @@ export const SvgStyles = () => (
 			<stop offset='0%' stopColor='hsl(39, 89%, 49%)' />
 			<stop offset='100%' stopColor='hsl(40, 84%, 53%)' />
 		</linearGradient>
+		<linearGradient id='lizard-gradient' x1='0%' y1='100%' x2='0%' y2='0%'>
+			<stop offset='0%' stopColor='hsl(261, 73%, 60%)' />
+			<stop offset='100%' stopColor='hsl(261, 72%, 63%)' />
+		</linearGradient>
+		<linearGradient id='spock-gradient' x1='0%' y1='100%' x2='0%' y2='0%'>
+			<stop offset='0%' stopColor='hsl(189, 59%, 53%)' />
+			<stop offset='100%' stopColor='hsl(189, 58%, 57%)' />
+		</linearGradient>
 		<filter id='inset-highlight'>
 			{/* Shadow offset */}
 			<feOffset dx='0' dy='5' />

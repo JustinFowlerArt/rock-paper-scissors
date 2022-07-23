@@ -8,7 +8,7 @@ export const Icon = ({ name, handlePicked }: Props) => {
 		<svg
 			width={130}
 			height={130}
-			className='inner-shadow z-10 lg:order-2'
+			className='inner-shadow z-10'
 			cursor={handlePicked ? 'pointer' : 'default'}
 			onClick={
 				handlePicked
@@ -29,8 +29,8 @@ export const Icon = ({ name, handlePicked }: Props) => {
 
 			<image
 				width={`${name === 'paper' ? 42 : 45}`}
-				x={42}
-				y={`${name === 'rock' ? 45 : 42}`}
+				x={`${name === 'spock' ? 45 : 42}`}
+				y={`${name === 'rock' ? 45 : name === 'spock' ? 35 : 42}`}
 				href={`/images/icon-${name}.svg`}
 			/>
 		</svg>

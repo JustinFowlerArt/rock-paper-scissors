@@ -1,23 +1,55 @@
 import { useEffect, useState } from 'react';
 import { Header } from './header';
-import { Icon } from './icon';
-import { Placeholder } from './placeholder';
+import { PickOptions } from './pickOptions';
+import { PickOutcome } from './pickOutcome';
+import { RulesModal } from './rulesModal';
+
+interface iWinConditions {
+	scissors: string;
+	paper: string;
+	rock: string;
+	lizard: string;
+	spock: string;
+}
 
 export const Game = () => {
+	const [firstRender, setFirstRender] = useState(true);
+	const [showRules, setShowRules] = useState(false);
+	const [bonus, setBonus] = useState(false);
 	const [score, setScore] = useState(0);
 	const [playerPicked, setPlayerPicked] = useState('');
 	const [housePicked, setHousePicked] = useState('');
 	const [winner, setWinner] = useState('');
 
-	// TODO: Store and retrieve score from local storage
-	// TODO: Add rules modal
-	// TODO: Add bonus picks
 	useEffect(() => {
+		const localScore = localStorage.getItem('score');
+		const localBonus = localStorage.getItem('bonus');
+		if (firstRender) {
+			if (localScore) {
+				setScore(parseInt(localScore));
+			}
+			if (localBonus) {
+				setBonus(localBonus === 'true' ? true : false);
+			}
+			setFirstRender(false);
+		} else {
+			localStorage.setItem('score', score.toString());
+		}
+	}, [score, firstRender]);
+
+	useEffect(() => {
+		const winConditions: iWinConditions = {
+			scissors: 'paper lizard',
+			paper: 'rock spock',
+			rock: 'scissors lizard',
+			lizard: 'paper spock',
+			spock: 'scissors rock',
+		};
 		if (playerPicked && housePicked) {
 			if (
-				(playerPicked === 'paper' && housePicked === 'rock') ||
-				(playerPicked === 'scissors' && housePicked === 'paper') ||
-				(playerPicked === 'rock' && housePicked === 'scissors')
+				winConditions[playerPicked as keyof iWinConditions].includes(
+					housePicked
+				)
 			) {
 				setWinner('player');
 			} else if (playerPicked === housePicked) {
@@ -34,8 +66,8 @@ export const Game = () => {
 		}
 	}, [playerPicked, housePicked, winner]);
 
-	const handleHousePicked = () => {
-		const random = Math.ceil(Math.random() * 3);
+	const handleHousePicked = (count: number) => {
+		const random = Math.ceil(Math.random() * count);
 		switch (random) {
 			case 1:
 				setHousePicked(() => 'rock');
@@ -45,6 +77,12 @@ export const Game = () => {
 				break;
 			case 3:
 				setHousePicked(() => 'paper');
+				break;
+			case 4:
+				setHousePicked(() => 'lizard');
+				break;
+			case 5:
+				setHousePicked(() => 'spock');
 				break;
 			default:
 				break;
@@ -60,74 +98,42 @@ export const Game = () => {
 	const handlePicked = (picked: string) => {
 		setPlayerPicked(picked);
 		setTimeout(() => {
-			handleHousePicked();
+			bonus ? handleHousePicked(5) : handleHousePicked(3);
 		}, 1000);
 	};
 
-	const options = ['paper', 'scissors', 'rock'];
+	const handleShowRules = () => {
+		setShowRules(!showRules);
+	};
+
+	const handleBonusMode = (bonusMode: boolean) => {
+		setBonus(bonusMode);
+		localStorage.setItem('bonus', bonusMode.toString());
+	};
 
 	return (
 		<>
-			<Header score={score} />
+			<Header score={score} bonus={bonus} handleBonusMode={handleBonusMode} />
 
 			{!playerPicked ? (
-				<div className='relative flex flex-wrap justify-around items-center h-72 w-96 lg:scale-[1.75] lg:origin-top xl:scale-[2]'>
-					{options.map(option => (
-						<Icon key={option} name={option} handlePicked={handlePicked} />
-					))}
-					<img
-						className='absolute h-3/5 top-16'
-						src='/images/bg-triangle.svg'
-					></img>
-				</div>
+				<PickOptions bonus={bonus} handlePicked={handlePicked} />
 			) : (
-				<div className='relative flex flex-wrap justify-around h-72 w-96 text-gray-200 text-sm tracking-widest lg:justify-center lg:text-xs lg:scale-[1.75] lg:h-auto lg:w-auto lg:space-x-2 lg:items-end xl:scale-[2.25]'>
-					<div className='flex flex-col items-center'>
-						<div className='relative'>
-							{winner === 'player' && (
-								<div className='absolute -top-[79px] -left-[79px] h-72 w-72 bg-gradient-radial from-white opacity-10 rounded-full'></div>
-							)}
-							<Icon name={playerPicked} />
-						</div>
-						<span className='mt-4 lg:mt-0 lg:mb-6 lg:order-1'>YOU PICKED</span>
-					</div>
-
-					<div className='flex flex-col items-center lg:order-3'>
-						{!housePicked ? (
-							<Placeholder />
-						) : (
-							<div className='relative'>
-								{winner === 'house' && (
-									<div className='absolute -top-[79px] -left-[79px] h-72 w-72 bg-gradient-radial from-gray-200 opacity-10 rounded-full'></div>
-								)}
-								<Icon name={housePicked} />
-							</div>
-						)}
-						<span className='mt-4 lg:mt-0 lg:mb-6 lg:order-1'>
-							THE HOUSE PICKED
-						</span>
-					</div>
-					{winner && (
-						<div className='flex flex-col items-center space-y-4 mt-28 lg:mt-0 lg:order-2 lg:scale-[.6] lg:mb-6'>
-							<span className='text-5xl font-bold'>
-								{winner === 'player'
-									? 'YOU WIN'
-									: winner === 'house'
-									? 'YOU LOSE'
-									: 'DRAW'}
-							</span>
-							<button
-								className='bg-gray-200 rounded-md py-3 px-16 text-dark-text tracking-widest lg:px-12 lg:py-2 hover:text-red-700'
-								onClick={playAgain}
-							>
-								PLAY AGAIN
-							</button>
-						</div>
-					)}
-				</div>
+				<PickOutcome
+					winner={winner}
+					playerPicked={playerPicked}
+					housePicked={housePicked}
+					playAgain={playAgain}
+				/>
 			)}
 
-			<button className='border-2 border-gray-500 rounded-xl py-2 px-8 text-gray-300 tracking-widest lg:absolute lg:right-8 lg:bottom-8'>
+			{showRules && (
+				<RulesModal bonus={bonus} handleShowRules={handleShowRules} />
+			)}
+
+			<button
+				className='border-2 border-gray-500 rounded-xl py-2 px-8 text-gray-300 tracking-widest lg:absolute lg:right-8 lg:bottom-8'
+				onClick={handleShowRules}
+			>
 				RULES
 			</button>
 		</>
