@@ -7,6 +7,7 @@ This is a solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](h
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   - [Screenshot](#screenshot)
+  - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
@@ -31,6 +32,10 @@ Users should be able to:
 ![](./design/final-desktop-2.png)
 ![](./design/final-mobile-1.png)
 ![](./design/final-mobile-2.png)
+
+### Links
+- Solution URL: [Solution URL](https://www.frontendmentor.io/solutions/rock-paper-scissors-with-react-typescript-and-tailwind-SMyDpym6FU)
+- Live Site URL: [Live Site URL](https://rock-paper-scissors.justinfowlerart.com/)
 
 ## My process
 

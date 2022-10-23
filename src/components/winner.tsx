@@ -5,7 +5,7 @@ interface Props {
 
 export const Winner = ({ winner, playAgain }: Props) => {
 	return (
-		<div className='flex flex-col items-center space-y-4 mt-28 lg:mt-0 lg:order-2 lg:scale-[.6] lg:mb-6'>
+		<div className='flex flex-col items-center space-y-4 mt-24 lg:mt-0 lg:order-2 lg:scale-[.6] lg:mb-6'>
 			<span className='text-5xl font-bold'>
 				{winner === 'player'
 					? 'YOU WIN'

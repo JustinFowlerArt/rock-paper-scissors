@@ -28,9 +28,10 @@ export const Icon = ({ name, handlePicked }: Props) => {
 			></circle>
 
 			<image
-				width={`${name === 'paper' ? 42 : 45}`}
-				x={`${name === 'spock' ? 45 : 42}`}
-				y={`${name === 'rock' ? 45 : name === 'spock' ? 35 : 42}`}
+				width={`${name === 'paper' || name === 'spock' ? 42 : name === 'lizard' ? 54 : 45}`}
+				height={`${name === 'rock' ? 45 : 54}`}
+				x={`${name === 'spock' ? 45 : name === 'lizard' ? 38 : 42}`}
+				y={`${name === 'rock' ? 45 : name === 'spock' ? 38 : 42}`}
 				href={`/images/icon-${name}.svg`}
 			/>
 		</svg>

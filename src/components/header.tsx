@@ -6,7 +6,7 @@ interface Props {
 
 export const Header = ({ score, bonus, handleBonusMode }: Props) => {
 	return (
-		<header className='relative flex items-center w-full max-w-lg justify-between border-3 border-header-outline rounded-lg p-2.5 lg:scale-150 lg:origin-top lg:absolute lg:top-12 xl:scale-[1.75] z-20'>
+		<header className='relative flex items-center w-full max-w-lg justify-between border-3 border-header-outline rounded-lg p-2 lg:scale-150 lg:origin-top lg:absolute lg:top-12 xl:scale-[1.75] z-20'>
 			<img
 				className='h-12 m-2'
 				src={`/images/${bonus ? 'logo-bonus' : 'logo'}.svg`}
@@ -38,10 +38,10 @@ export const Header = ({ score, bonus, handleBonusMode }: Props) => {
 			</form>
 
 			<div className='flex flex-col items-center justify-evenly py-2 px-5 bg-gray-200 rounded-md'>
-				<span className='text-xs text-score-text tracking-wider'>SCORE</span>
-				<span className='text-4xl text-dark-text font-bold leading-none'>
+				<h2 className='text-xs text-score-text tracking-wider'>SCORE</h2>
+				<h1 className='text-4xl text-dark-text font-bold leading-none'>
 					{score}
-				</span>
+				</h1>
 			</div>
 		</header>
 	);

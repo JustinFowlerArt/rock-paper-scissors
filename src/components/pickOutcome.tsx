@@ -16,7 +16,7 @@ export const PickOutcome = ({
 	playAgain,
 }: Props) => {
 	return (
-		<div className='relative flex flex-wrap justify-around h-72 w-96 text-gray-200 text-sm tracking-widest lg:origin-top lg:justify-center lg:text-xs lg:scale-[1.75] lg:h-auto lg:w-auto lg:space-x-4 lg:items-end xl:scale-[2.25]'>
+		<div className='relative flex flex-wrap justify-around h-72 w-96 text-gray-200 text-sm tracking-widest lg:origin-bottom lg:mb-12 lg:justify-center lg:text-xs lg:scale-[1.75] lg:h-auto lg:w-auto lg:space-x-2 lg:items-end xl:scale-[2.25]'>
 			<div className='flex flex-col items-center'>
 				<div className='relative lg:order-2'>
 					{winner === 'player' && (
